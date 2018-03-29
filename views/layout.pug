@@ -1,0 +1,30 @@
+extends main
+
+block body
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    .container
+      a.navbar-brand(href='#') URL Shortner
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExample07', aria-controls='navbarsExample07', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.dropdown
+            a#dropdown01.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | URL
+            .dropdown-menu(aria-labelledby='dropdown01')
+              a.dropdown-item(href='/') List
+              a.dropdown-item(href='/create') Erstellen
+          if isAdmin
+            li.nav-item.dropdown
+              a#dropdown02.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                | User
+              .dropdown-menu(aria-labelledby='dropdown02')
+                a.dropdown-item(href='/users') List
+                a.dropdown-item(href='/users/create') Erstellen
+
+
+        .my-2.my-md-0
+          a.btn.btn-info(role='button', href='/logout') Logout
+
+  .wrapper
+    block content
