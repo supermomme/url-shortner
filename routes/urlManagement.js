@@ -5,6 +5,15 @@ var User = require('../models/user')
 var router = express.Router()
 var Url = require('../models/url.js')
 
+var frobiddenUrlIds = [
+  '',
+  'login',
+  'register',
+  'create',
+  'users',
+  'users/create'
+].concat(config.frobiddenUrlIds)
+
 router.get('/', (req, res) => {
   if(!req.isAuthenticated()) {
     return res.redirect('/login')
@@ -32,29 +41,18 @@ router.post('/create', (req, res) => {
       message: 'Du must dich angemeldet haben um kurze URLs erstellen zu können.'
     })
   }
+  if (frobiddenUrlIds.includes(req.body.shortUrlId)) {
+    return res.render('url/createFailed', { shortUrl: `${config.host}/${req.body.shortUrlId}` })
+  }
   Url.create({
     longUrl: req.body.longUrl,
     shortUrlId: req.body.shortUrlId
   })
   .then((data) => {
     res.render('url/createSuccess', {
-      shortUrl: 'http://test.de/'+data.shortUrlId,
+      shortUrl: `${config.host}/${data.shortUrlId}`,
       longUrl: data.longUrl
     })
-  })
-  .catch((error) => {
-    res.render('error', { message: 'Irgendetwas ist schief gelaufen!', error})
-  })
-})
-
-router.get('/users', (req, res) => {
-  if(!req.isAuthenticated() || !req.user.isAdmin) {
-    return res.redirect('/')
-  }
-  User.find()
-  .then((data) => {
-    console.log(data)
-    res.render('users/list', { users: data, isAdmin: req.user.isAdmin })
   })
   .catch((error) => {
     res.render('error', { message: 'Irgendetwas ist schief gelaufen!', error})
