@@ -9,6 +9,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var config = require('config')
 
 var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -29,13 +31,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', indexRouter)
+app.use('/', authRouter)
+app.use('/user', usersRouter)
 
 // passport config
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+var User = require('./models/user');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // mongoose
 mongoose.connect(config.mongodb);

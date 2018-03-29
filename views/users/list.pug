@@ -1,19 +1,18 @@
 extends ../layout
 
 block content
-  .wrapper    
-    table.table
-      thead
-        tr
-          th(scope='col') Name
-          th(scope='col') IsAdmin
-          th(scope='col') Löschen
-      tbody
-        each user in users
-          tr
-            td
-              | #{user.username}
-            td
-              | #{user.isAdmin}
-            td
-              button.btn.btn-danger.btn-sm(type='button') Löschen
+	table.table
+		thead
+			tr
+				th(scope='col') Name
+				th(scope='col') IsAdmin
+				th(scope='col') Löschen
+		tbody
+			each user in users
+				tr
+					td
+						| #{user.username}
+					td
+						| #{user.isAdmin}
+					td
+						button.btn.btn-danger.btn-sm(type='button') Löschen
