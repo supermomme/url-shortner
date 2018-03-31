@@ -1,4 +1,5 @@
 {
-    "host": "https://example.com",
-    "port": 80
+    "host": "HOST",
+    "port": "80",
+    "mongodb": "MONGODB"
 }
