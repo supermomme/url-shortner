@@ -3,7 +3,7 @@ extends ../layout
 block content
 	h1 Kurze URL erstellen
 	br
-	form(role='form', action='/create', method='post', style='max-width: 500px;')
+	form(role='form', action='/admin/create', method='post', style='max-width: 500px;')
 		label(for='longUrl') Kurze URL
 		.form-group
 			input#longUrl.form-control(type='text', name='longUrl', placeholder='Lange URL')
@@ -13,4 +13,4 @@ block content
 				span#shortUrlAddon.input-group-text #{host}/
 			input#shortUrl.form-control(type='text', name='shortUrlId', placeholder="Kurze URL", aria-describedby='shortUrlAddon')
 		button.btn.btn-success(type='submit', style='margin-right:5px;') Erstellen
-		a.btn.btn-danger(role='button', href='/') Abbrechen
+		a.btn.btn-danger(role='button', href='/admin') Abbrechen

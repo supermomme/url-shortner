@@ -5,7 +5,10 @@ var router = express.Router()
 
 router.get('/', (req, res) => {
   if(!req.isAuthenticated() || !req.user.isAdmin) {
-    return res.redirect('/')
+    return res.render('failed', {
+      title: 'Nicht Autenfiziert!',
+      message: 'Du must dich angemeldet haben und ein Administrator sein um diese Seite besuchen zu können.'
+    })
   }
   User.find()
   .then((data) => {

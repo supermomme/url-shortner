@@ -1,5 +1,5 @@
 {
-    "host": "https://example.com",
+    "host": "http://localhost:3000",
     "port": 3000,
     "mongodb": "mongodb://localhost/url-shortner",
     "frobiddenUrlIds": []

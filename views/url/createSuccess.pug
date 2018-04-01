@@ -2,7 +2,8 @@ extends ../layout
 
 block content
 	h3 Kurze Url erstellt
-	| Jaa du hast deine Url erfolgreich erstellt. Sie lautet #{shortUrl}
+	| Jaa du hast deine Url erfolgreich erstellt. Sie lautet 
+	a(href=shortUrl) #{shortUrl}
 	br
-	a(href='/') Zurück
+	a(href='/admin') Zurück
 	

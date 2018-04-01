@@ -4,7 +4,7 @@ block body
   .wrapper
     .container
       h1 Login
-      form(role='form', action='/login', method='post', style='max-width: 300px;')
+      form(role='form', action='/admin/login', method='post', style='max-width: 300px;')
         .form-group
           label(for='inputUsername') Username
           input#inputUsername.form-control(type='text', name='username', placeholder='Username')
@@ -12,5 +12,5 @@ block body
           label(for='inputPassword') Password
           input#inputPassword.form-control(type='password', name='password', placeholder='Password')
         button.btn.btn-primary(type='submit', style='margin-right:5px;') Login
-        a.btn.btn-danger(role='button', href="/") Cancel
+        a.btn.btn-danger(role='button', href="/admin") Cancel
 

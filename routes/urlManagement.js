@@ -6,18 +6,16 @@ var router = express.Router()
 var Url = require('../models/url.js')
 
 var frobiddenUrlIds = [
-  '',
-  'login',
-  'register',
-  'create',
-  'users',
-  'users/create'
+  'admin',
+  'admin/login',
+  'admin/register',
+  'admin/create',
+  'admin/users',
+  'admin/users/create'
 ].concat(config.frobiddenUrlIds)
 
 router.get('/', (req, res) => {
-  if(!req.isAuthenticated()) {
-    return res.redirect('/login')
-  }
+  if(!req.isAuthenticated()) return res.redirect('/admin/login')
   Url.find()
   .then((data) => {
     res.render('url/list', { urls: data, host: config.host, isAdmin: req.user.isAdmin })
@@ -29,7 +27,10 @@ router.get('/', (req, res) => {
 
 router.get('/create', (req, res) => {
   if(!req.isAuthenticated()) {
-    return res.redirect('/login')
+    return res.render('failed', {
+      title: 'Nicht Autenfiziert!',
+      message: 'Du must dich angemeldet haben um diese Seite besuchen zu können.'
+    })
   }
   res.render('url/create', { host: config.host, isAdmin: req.user.isAdmin })
 })
@@ -42,7 +43,7 @@ router.post('/create', (req, res) => {
     })
   }
   if (frobiddenUrlIds.includes(req.body.shortUrlId)) {
-    return res.render('url/createFailed', { shortUrl: `${config.host}/${req.body.shortUrlId}` })
+    return res.render('url/createFailed', { shortUrl: `${config.host}/${req.body.shortUrlId}`, isAdmin: req.user.isAdmin })
   }
   Url.create({
     longUrl: req.body.longUrl,
@@ -55,6 +56,7 @@ router.post('/create', (req, res) => {
     })
   })
   .catch((error) => {
+    if(error.code === 11000) return res.render('url/createFailed', { shortUrl: `${config.host}/${req.body.shortUrlId}`, isAdmin: req.user.isAdmin })
     res.render('error', { message: 'Irgendetwas ist schief gelaufen!', error})
   })
 })

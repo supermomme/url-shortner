@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var Url = new Schema({
     longUrl: String,
-    shortUrlId: String
+    shortUrlId: { type: String, unique: true }
 })
 
 module.exports = mongoose.model('Url', Url);
