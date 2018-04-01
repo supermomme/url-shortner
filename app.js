@@ -12,7 +12,6 @@ var flash = require('connect-flash');
 var indexRouter = require('./routes/index')
 var loginRouter = require('./routes/login')
 var logoutRouter = require('./routes/logout')
-var registerRouter = require('./routes/register')
 var urlsRouter = require('./routes/urls')
 var usersRouter = require('./routes/users')
 
@@ -39,7 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter)
 app.use('/admin/login', loginRouter)
 app.use('/admin/logout', logoutRouter)
-app.use('/admin/register', registerRouter)
 app.use('/admin/', urlsRouter)
 app.use('/admin/users', usersRouter)
 

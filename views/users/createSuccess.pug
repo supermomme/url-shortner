@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+	h3 Benutzer erstellt
+	| Jaa du hast Den Benutzer 
+	strong #{username}
+	|  mit dem gewähltem Passwort 
+	if isCreatedUserAdmin
+		| als Administrator 
+	else
+		| als normaler Benutzer 
+	| erfolgreich erstellt.
+	br
+	a(href='/admin/users') Zurück

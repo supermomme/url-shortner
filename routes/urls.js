@@ -8,7 +8,6 @@ var Url = require('../models/url.js')
 var frobiddenUrlIds = [
   'admin',
   'admin/login',
-  'admin/register',
   'admin/create',
   'admin/users',
   'admin/users/create'

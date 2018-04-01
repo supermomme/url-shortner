@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+	h1 Nutzer erstellen
+	br
+	form(role='form', action='/admin/users/create', method='post', style='max-width: 500px;')
+		.form-group.row
+			label.col-sm-2.col-form-label(for='inputUsername') Nutzername
+			.col-sm-10
+				input#inputUsername.form-control(type='text', name="username", placeholder='Nutzername')
+		.form-group.row
+			label.col-sm-2.col-form-label(for='inputPassword') Passwort
+			.col-sm-10
+				input#inputPassword.form-control(type='text', name="password", placeholder='Passwort')
+		.form-group.row
+			label.col-sm-2.form-check-label(for='checkboxisAdmin') Administrator
+			.col-sm-10
+				.form-check
+					input#checkboxisAdmin.form-check-input(type='checkbox', name="isAdmin", value="true")
+		.form-group.row
+			.col-sm-10
+				button.btn.btn-success(type='submit', style='margin-right:5px;') Erstellen
+				a.btn.btn-danger(role='button', href='/admin/users') Abbrechen
+
+
