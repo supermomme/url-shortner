@@ -12,7 +12,6 @@ router.get('/', (req, res) => {
   }
   User.find()
   .then((data) => {
-    console.log(data)
     res.render('users/list', { users: data, isAdmin: req.user.isAdmin })
   })
   .catch((error) => {

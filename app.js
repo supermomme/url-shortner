@@ -9,10 +9,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var config = require('config')
 var flash = require('connect-flash');
 
-var urlRouter = require('./routes/url');
-var authRouter = require('./routes/auth');
-var urlManagementRouter = require('./routes/urlManagement');
-var usersManagementRouter = require('./routes/usersManagement');
+var indexRouter = require('./routes/index')
+var loginRouter = require('./routes/login')
+var logoutRouter = require('./routes/logout')
+var registerRouter = require('./routes/register')
+var urlsRouter = require('./routes/urls')
+var usersRouter = require('./routes/users')
 
 var app = express();
 
@@ -34,10 +36,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', urlRouter)
-app.use('/admin', authRouter)
-app.use('/admin', urlManagementRouter)
-app.use('/admin/users', usersManagementRouter)
+app.use('/', indexRouter)
+app.use('/admin/login', loginRouter)
+app.use('/admin/logout', logoutRouter)
+app.use('/admin/register', registerRouter)
+app.use('/admin/', urlsRouter)
+app.use('/admin/users', usersRouter)
 
 // passport config
 var User = require('./models/user');

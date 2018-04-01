@@ -7,14 +7,12 @@ var router = express.Router()
 router.get('*', (req, res, next) => {
 	Url.findOne({shortUrlId: req.url.substring(1)})
 	.then((data) => {
-		if (data === null) {
-			return next()
-		}
+		if (data === null) return next()
 		res.redirect(data.longUrl)
 	})
-  .catch((error) => {
-    res.render('error', { message: 'Fehler!', error})
-  })
+    .catch((error) => {
+        res.render('error', { message: 'Fehler!', error})
+    })
 })
 
 
