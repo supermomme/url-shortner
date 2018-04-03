@@ -13,10 +13,10 @@ router.get('/', (req, res) => {
   }
   User.find()
   .then((data) => {
-    res.render('users/list', { users: data, isAdmin: req.user.isAdmin })
+    res.render('users/list', { users: data, isAdmin: req.user.isAdmin, title: config.pageTitle + ' | Benutzer Liste' })
   })
   .catch((error) => {
-    res.render('error', { message: 'Irgendetwas ist schief gelaufen!', error})
+    res.render('error', { message: 'Irgendetwas ist schief gelaufen!', error, title: config.pageTitle + ' | Fehler'})
   })
 })
 
@@ -27,7 +27,7 @@ router.get('/create', (req, res) => {
       message: 'Du must dich angemeldet haben und ein Administrator sein um diese Seite besuchen zu können.'
     })
   }
-  res.render('users/create', { isAdmin: req.user.isAdmin })
+  res.render('users/create', { isAdmin: req.user.isAdmin, title: config.pageTitle + ' | Benutzer Erstellen' })
 })
 
 router.post('/create', (req, res) => {
@@ -38,13 +38,17 @@ router.post('/create', (req, res) => {
     })
   }
 	User.register(new User({ username : req.body.username, isAdmin: req.body.isAdmin }), req.body.password, (error, user) => {
-    if (error && error.name === 'UserExistsError') return res.render('users/createFailed', { username: req.body.username })
+    if (error && error.name === 'UserExistsError') return res.render('users/createFailed', {
+      username: req.body.username,
+      title: config.pageTitle + ' | Benutzer Erstellen'
+    })
     if (error) return res.render('error', { message: error.msg, error })
     res.render('users/createSuccess', {
       username: req.body.username,
       password: req.body.password,
       isCreatedUserAdmin: req.body.isAdmin,
-      isAdmin: req.user.isAdmin
+      isAdmin: req.user.isAdmin,
+      title: config.pageTitle + ' | Benutzer Erstellen'
     })
 	})
 })

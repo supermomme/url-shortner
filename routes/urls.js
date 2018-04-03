@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
   if(!req.isAuthenticated()) return res.redirect('/admin/login')
   Url.find()
   .then((data) => {
-    res.render('url/list', { urls: data, host: config.host, isAdmin: req.user.isAdmin })
+    res.render('url/list', { urls: data, host: config.host, isAdmin: req.user.isAdmin, title: config.pageTitle + ' | URL Liste' })
   })
   .catch((error) => {
     res.render('error', { message: 'Fehler!', error})
@@ -31,7 +31,7 @@ router.get('/create', (req, res) => {
       message: 'Du must dich angemeldet haben um diese Seite besuchen zu können.'
     })
   }
-  res.render('url/create', { host: config.host, isAdmin: req.user.isAdmin })
+  res.render('url/create', { host: config.host, isAdmin: req.user.isAdmin, title: config.pageTitle + ' | URL Erstellen' })
 })
 
 router.post('/create', (req, res) => {
@@ -42,7 +42,7 @@ router.post('/create', (req, res) => {
     })
   }
   if (frobiddenUrlIds.includes(req.body.shortUrlId)) {
-    return res.render('url/createFailed', { shortUrl: `${config.host}/${req.body.shortUrlId}`, isAdmin: req.user.isAdmin })
+    return res.render('url/createFailed', { shortUrl: `${config.host}/${req.body.shortUrlId}`, isAdmin: req.user.isAdmin, title: config.pageTitle + ' | URL Erstellen' })
   }
   Url.create({
     longUrl: req.body.longUrl,
@@ -51,12 +51,17 @@ router.post('/create', (req, res) => {
   .then((data) => {
     res.render('url/createSuccess', {
       shortUrl: `${config.host}/${data.shortUrlId}`,
-      longUrl: data.longUrl
+      longUrl: data.longUrl,
+      title: config.pageTitle + ' | URL Erstellen'
     })
   })
   .catch((error) => {
-    if(error.code === 11000) return res.render('url/createFailed', { shortUrl: `${config.host}/${req.body.shortUrlId}`, isAdmin: req.user.isAdmin })
-    res.render('error', { message: 'Irgendetwas ist schief gelaufen!', error})
+    if(error.code === 11000) return res.render('url/createFailed', {
+      shortUrl: `${config.host}/${req.body.shortUrlId}`,
+      isAdmin: req.user.isAdmin,
+      title: config.pageTitle + ' | URL Erstellen'
+    })
+    res.render('error', { message: 'Irgendetwas ist schief gelaufen!', error, title: config.pageTitle + ' | Fehler'})
   })
 })
 

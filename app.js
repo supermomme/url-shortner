@@ -14,6 +14,7 @@ var loginRouter = require('./routes/login')
 var logoutRouter = require('./routes/logout')
 var urlsRouter = require('./routes/urls')
 var usersRouter = require('./routes/users')
+var settingsRouter = require('./routes/settings')
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/admin/login', loginRouter)
 app.use('/admin/logout', logoutRouter)
 app.use('/admin/', urlsRouter)
 app.use('/admin/users', usersRouter)
+app.use('/admin/settings', settingsRouter)
 
 // passport config
 var User = require('./models/user');

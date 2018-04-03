@@ -23,8 +23,11 @@ block body
                 a.dropdown-item(href='/admin/users/create') Erstellen
 
 
-        .my-2.my-md-0
-          a.btn.btn-info(role='button', href='/admin/logout') Logout
+        ul.navbar-nav.my-2.my-md-0
+          li.nav-item
+            a.nav-link(href="/admin/settings/password") Change Password
+          li.nav-item
+            a.nav-link(href="/admin/logout") Logout
 
   .wrapper
     block content

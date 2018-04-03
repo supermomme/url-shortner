@@ -5,7 +5,7 @@ var User = require('../models/user')
 var router = express.Router()
 
 router.get('/', (req, res) => {
-	if(!req.isAuthenticated()) return req.redirect('/admin/login')
+	if(!req.isAuthenticated()) return res.redirect('/admin/login')
 	req.logout()
 	res.redirect('/admin')
 })
