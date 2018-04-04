@@ -65,4 +65,18 @@ router.post('/create', (req, res) => {
   })
 })
 
+router.post('/delete', (req, res) => {
+  if(!req.isAuthenticated()) {
+    return res.render('failed', {
+      title: 'Nicht Autenfiziert!',
+      message: 'Du must dich angemeldet haben um diese Seite besuchen zu können.'
+    })
+  }
+
+  Url.findByIdAndRemove(req.body.urlId, (error, url) => {
+    if (error) return res.render('error', { message: error.msg, error })
+    res.render('url/deleteSuccess', { title: config.pageTitle + ' | URL Löschen', url, host: config.host, isAdmin: req.user.isAdmin })
+  })
+})
+
 module.exports = router

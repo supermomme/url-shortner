@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+	h3 URL gelöscht
+	| Die URL 
+	- var shortUrl = `${host}/${url.shortUrlId}`;
+	strong #{shortUrl}
+	|  die zu 
+	strong
+		a(href=url.longUrl) #{url.longUrl}
+	|  führte, wurde unwiederruflich gelöscht.
+	br
+	a(href='/admin') Zurück

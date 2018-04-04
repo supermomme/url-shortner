@@ -1,19 +1,30 @@
 extends ../layout
 
 block content
-  table.table
-    thead
-      tr
-        th(scope='col') Kurze URL
-        th(scope='col') Lange URL
-        th(scope='col') Löschen
-    tbody
-      each url in urls
-        tr
-          td
-            a(href=url.longUrl) #{url.longUrl}
-          td
-            - var shortUrl = `${host}/${url.shortUrlId}`;
-            a(href=shortUrl) #{shortUrl}
-          td
-            button.btn.btn-danger.btn-sm(type='button') Löschen
+	table.table
+		thead
+			tr
+				th(scope='col') Kurze URL
+				th(scope='col') Lange URL
+				th(scope='col') Löschen
+		tbody
+			each url in urls
+				tr
+					td
+						a(href=url.longUrl) #{url.longUrl}
+					td
+						- var shortUrl = `${host}/${url.shortUrlId}`;
+						a(href=shortUrl) #{shortUrl}
+					td
+						form.delete-form-inline(method='post', action='/admin/delete')
+							button.btn.btn-danger.btn-sm(
+								type='submit',
+								name='urlId',
+								value=url._id,
+								data-toggle='confirmation',
+								data-title="URL wirklich Löschen?",
+								data-btn-ok-label="Ja",
+								data-btn-ok-class="btn-success",
+								data-btn-cancel-label="Nein",
+								data-btn-cancel-class="btn-danger"
+							) Löschen
