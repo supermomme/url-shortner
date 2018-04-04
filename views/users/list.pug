@@ -18,4 +18,15 @@ block content
 						else
 							| Nope
 					td
-						button.btn.btn-danger.btn-sm(type='button') Löschen
+						form.delete-form-inline(method='post', action='/admin/users/delete')
+							button.btn.btn-danger.btn-sm(
+								type='submit',
+								name='userId',
+								value=user._id,
+								data-toggle='confirmation',
+								data-title="Nutzer wirklich Löschen?",
+								data-btn-ok-label="Ja",
+								data-btn-ok-class="btn-success",
+								data-btn-cancel-label="Nein",
+								data-btn-cancel-class="btn-danger"
+							) Löschen

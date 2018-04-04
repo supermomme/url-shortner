@@ -9,3 +9,23 @@ body {
 a {
   color: #00B7FF;
 }
+
+.delete-form-inline {
+  display: inline;
+}
+
+.delete-form-link-button {
+  background: none;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: serif;
+}
+.delete-form-link-button:focus {
+  outline: none;
+}
+.delete-form-link-button:active {
+  color:red;
+}

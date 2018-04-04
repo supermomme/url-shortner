@@ -53,4 +53,27 @@ router.post('/create', (req, res) => {
 	})
 })
 
+router.get('/delete', (req, res) => {
+  if(!req.isAuthenticated() || !req.user.isAdmin) {
+    return res.render('failed', {
+      title: 'Nicht Autenfiziert!',
+      message: 'Du must dich angemeldet haben und ein Administrator sein um diese Seite besuchen zu können.'
+    })
+  }
+  res.render('users/delete', { title: config.pageTitle + ' | Benutzer Löschen' })
+})
+
+router.post('/delete', (req, res) => {
+  if(!req.isAuthenticated() || !req.user.isAdmin) {
+    return res.render('failed', {
+      title: 'Nicht Autenfiziert!',
+      message: 'Du must dich angemeldet haben und ein Administrator sein um diese Seite besuchen zu können.'
+    })
+  }
+  User.findByIdAndRemove(req.body.userId, (error, user) => {
+    if (error) return res.render('error', { message: error.msg, error })
+    res.render('users/deleteSuccess', { title: config.pageTitle + ' | Benutzer Löschen', username: user.username })
+  })
+})
+
 module.exports = router
