@@ -21,9 +21,8 @@ router.post('/password', (req, res) => {
       message: 'Du must dich angemeldet haben und ein Administrator sein um diese Seite besuchen zu können.'
     })
 	}
-	console.log(req.body)
 	req.user.changePassword(req.body.oldPassword, req.body.newPassword)
-	.then(res => {
+	.then(data => {
 		res.render('settings/passwordSuccess', { title: config.pageTitle, currentUser: req.user })
 	})
 	.catch(err => {
