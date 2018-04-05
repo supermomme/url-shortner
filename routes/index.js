@@ -8,7 +8,8 @@ router.get('*', (req, res, next) => {
 	Url.findOne({shortUrlId: req.url.substring(1)})
 	.then((data) => {
 		if (data === null) return next()
-		res.redirect(data.longUrl)
+		return Url.findByIdAndUpdate(data._id, { visits: data.visits + 1 })
+		.then(data => res.redirect(data.longUrl))
 	})
     .catch((error) => {
         res.render('error', { message: 'Fehler!', error})
