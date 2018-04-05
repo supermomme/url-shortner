@@ -14,7 +14,7 @@ block body
             .dropdown-menu(aria-labelledby='dropdown01')
               a.dropdown-item(href='/admin/') List
               a.dropdown-item(href='/admin/create') Erstellen
-          if isAdmin
+          if currentUser.isAdmin
             li.nav-item.dropdown
               a#dropdown02.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                 | User
@@ -24,8 +24,11 @@ block body
 
 
         ul.navbar-nav.my-2.my-md-0
-          li.nav-item
-            a.nav-link(href="/admin/settings/password") Change Password
+          li.nav-item.dropdown
+            a#dropdown03.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Hallo #{currentUser.username}
+            .dropdown-menu(aria-labelledby='dropdown03')
+              a.dropdown-item(href='/admin/settings/password') Change Password
           li.nav-item
             a.nav-link(href="/admin/logout") Logout
 

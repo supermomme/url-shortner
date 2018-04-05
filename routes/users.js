@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
   }
   User.find()
   .then((data) => {
-    res.render('users/list', { users: data, isAdmin: req.user.isAdmin, title: config.pageTitle + ' | Benutzer Liste' })
+    res.render('users/list', { users: data, currentUser: req.user, title: config.pageTitle + ' | Benutzer Liste' })
   })
   .catch((error) => {
     res.render('error', { message: 'Irgendetwas ist schief gelaufen!', error, title: config.pageTitle + ' | Fehler'})
@@ -27,7 +27,7 @@ router.get('/create', (req, res) => {
       message: 'Du must dich angemeldet haben und ein Administrator sein um diese Seite besuchen zu können.'
     })
   }
-  res.render('users/create', { isAdmin: req.user.isAdmin, title: config.pageTitle + ' | Benutzer Erstellen' })
+  res.render('users/create', { currentUser: req.user, title: config.pageTitle + ' | Benutzer Erstellen' })
 })
 
 router.post('/create', (req, res) => {
@@ -47,7 +47,7 @@ router.post('/create', (req, res) => {
       username: req.body.username,
       password: req.body.password,
       isCreatedUserAdmin: req.body.isAdmin,
-      isAdmin: req.user.isAdmin,
+      currentUser: req.user,
       title: config.pageTitle + ' | Benutzer Erstellen'
     })
 	})
@@ -62,7 +62,7 @@ router.post('/delete', (req, res) => {
   }
   User.findByIdAndRemove(req.body.userId, (error, user) => {
     if (error) return res.render('error', { message: error.msg, error })
-    res.render('users/deleteSuccess', { title: config.pageTitle + ' | Benutzer Löschen', username: user.username })
+    res.render('users/deleteSuccess', { title: config.pageTitle + ' | Benutzer Löschen', username: user.username, currentUser: req.user })
   })
 })
 
@@ -75,7 +75,7 @@ router.post('/degrade', (req, res) => {
   }
   User.findByIdAndUpdate(req.body.userId, { isAdmin: false }, (error, user) => {
     if (error) return res.render('error', { message: error.msg, error })
-    res.render('users/degradeSuccess', { title: config.pageTitle + ' | Benutzer erfolgreich degradiert', username: user.username })
+    res.render('users/degradeSuccess', { title: config.pageTitle + ' | Benutzer erfolgreich degradiert', username: user.username, currentUser: req.user })
   })
 })
 
@@ -88,7 +88,7 @@ router.post('/promote', (req, res) => {
   }
   User.findByIdAndUpdate(req.body.userId, { isAdmin: true }, (error, user) => {
     if (error) return res.render('error', { message: error.msg, error })
-    res.render('users/promoteSuccess', { title: config.pageTitle + ' | Benutzer erfolgreich befördert', username: user.username })
+    res.render('users/promoteSuccess', { title: config.pageTitle + ' | Benutzer erfolgreich befördert', username: user.username, currentUser: req.user })
   })
 })
 

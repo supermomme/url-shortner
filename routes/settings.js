@@ -11,7 +11,7 @@ router.get('/password', (req, res) => {
       message: 'Du must dich angemeldet haben um diese Seite besuchen zu können.'
     })
   }
-  res.render('settings/password', { isAdmin: req.user.isAdmin, title: config.pageTitle + ' | Passwort Ändern' })
+  res.render('settings/password', { title: config.pageTitle + ' | Passwort Ändern', currentUser: req.user })
 })
 
 router.post('/password', (req, res) => {
@@ -24,10 +24,10 @@ router.post('/password', (req, res) => {
 	console.log(req.body)
 	req.user.changePassword(req.body.oldPassword, req.body.newPassword)
 	.then(res => {
-		res.render('settings/passwordSuccess', { title: config.pageTitle })
+		res.render('settings/passwordSuccess', { title: config.pageTitle, currentUser: req.user })
 	})
 	.catch(err => {
-		if (err.name === 'IncorrectPasswordError') return res.render('settings/passwordFailed', { title: config.pageTitle + ' | Passwort Ändern' })
+		if (err.name === 'IncorrectPasswordError') return res.render('settings/passwordFailed', { title: config.pageTitle + ' | Passwort Ändern', currentUser: req.user })
 		res.render('error', { error:err, title: config.pageTitle + ' | Fehler!' })
 	})
 })

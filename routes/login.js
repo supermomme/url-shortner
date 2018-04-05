@@ -6,7 +6,7 @@ var router = express.Router()
 
 router.get('/', (req, res) => {
 	if(req.isAuthenticated()) return req.redirect('/admin')
-	res.render('auth/login', { title: config.pageTitle + ' | Login' })
+	res.render('auth/login', { title: config.pageTitle + ' | Login', currentUser: req.user })
 })
 
 router.post('/', passport.authenticate('local', {
@@ -16,7 +16,7 @@ router.post('/', passport.authenticate('local', {
 
 router.get('/failed', (req, res) => {
 	if(req.isAuthenticated()) return req.redirect('/admin')
-	res.render('auth/loginFailed', { title: config.pageTitle + ' | Login' })
+	res.render('auth/loginFailed', { title: config.pageTitle + ' | Login', currentUser: req.user })
 })
 
 
