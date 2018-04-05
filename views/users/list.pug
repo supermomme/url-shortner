@@ -6,6 +6,7 @@ block content
 			tr
 				th(scope='col') Name
 				th(scope='col') Administrator
+				th(scope='col') Befördern / Degradieren
 				th(scope='col') Löschen
 		tbody
 			each user in users
@@ -17,6 +18,33 @@ block content
 							| Jo
 						else
 							| Nope
+					td
+						if user.isAdmin
+							form.delete-form-inline(method='post', action='/admin/users/degrade')
+								button.btn.btn-info.btn-sm(
+									type='submit',
+									name='userId',
+									value=user._id,
+									data-toggle='confirmation',
+									data-title="Nutzer Degradieren?",
+									data-btn-ok-label="Ja",
+									data-btn-ok-class="btn-success",
+									data-btn-cancel-label="Nein",
+									data-btn-cancel-class="btn-danger"
+								) Degradieren
+						else
+							form.delete-form-inline(method='post', action='/admin/users/promote')
+								button.btn.btn-info.btn-sm(
+									type='submit',
+									name='userId',
+									value=user._id,
+									data-toggle='confirmation',
+									data-title="Nutzer Befördern?",
+									data-btn-ok-label="Ja",
+									data-btn-ok-class="btn-success",
+									data-btn-cancel-label="Nein",
+									data-btn-cancel-class="btn-danger"
+								) Befördern
 					td
 						form.delete-form-inline(method='post', action='/admin/users/delete')
 							button.btn.btn-danger.btn-sm(

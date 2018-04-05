@@ -66,4 +66,30 @@ router.post('/delete', (req, res) => {
   })
 })
 
+router.post('/degrade', (req, res) => {
+  if(!req.isAuthenticated() || !req.user.isAdmin) {
+    return res.render('failed', {
+      title: 'Nicht Autenfiziert!',
+      message: 'Du must dich angemeldet haben und ein Administrator sein um diese Seite besuchen zu können.'
+    })
+  }
+  User.findByIdAndUpdate(req.body.userId, { isAdmin: false }, (error, user) => {
+    if (error) return res.render('error', { message: error.msg, error })
+    res.render('users/degradeSuccess', { title: config.pageTitle + ' | Benutzer erfolgreich degradiert', username: user.username })
+  })
+})
+
+router.post('/promote', (req, res) => {
+  if(!req.isAuthenticated() || !req.user.isAdmin) {
+    return res.render('failed', {
+      title: 'Nicht Autenfiziert!',
+      message: 'Du must dich angemeldet haben und ein Administrator sein um diese Seite besuchen zu können.'
+    })
+  }
+  User.findByIdAndUpdate(req.body.userId, { isAdmin: true }, (error, user) => {
+    if (error) return res.render('error', { message: error.msg, error })
+    res.render('users/promoteSuccess', { title: config.pageTitle + ' | Benutzer erfolgreich befördert', username: user.username })
+  })
+})
+
 module.exports = router
