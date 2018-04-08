@@ -1,5 +1,4 @@
 {
-    "host": "HOST",
     "port": "80",
     "mongodb": "mongodb://mongo/url-shortner"
 }
