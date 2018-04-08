@@ -16,6 +16,8 @@ var urlsRouter = require('./routes/urls')
 var usersRouter = require('./routes/users')
 var settingsRouter = require('./routes/settings')
 
+console.log('Config: ', config)
+
 var app = express();
 
 // view engine setup

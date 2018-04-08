@@ -1,5 +1,5 @@
 {
-    "host": "HOST",
+    "host": "VIRTUAL_HOST",
     "port": "80",
-    "mongodb": "MONGODB"
+    "mongodb": "mongodb://mongo/url-shortner"
 }
