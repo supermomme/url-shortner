@@ -1,6 +1,6 @@
 const clui = require('clui')
 const Spinner = clui.Spinner
-const clc = require('CLI-color')
+const clc = require('cli-color')
 const Line = clui.Line
 const mongoose = require('mongoose')
 const config = require('config')

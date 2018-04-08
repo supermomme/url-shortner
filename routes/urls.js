@@ -52,7 +52,8 @@ router.post('/create', (req, res) => {
     res.render('url/createSuccess', {
       shortUrl: `${config.host}/${data.shortUrlId}`,
       longUrl: data.longUrl,
-      title: config.pageTitle + ' | URL Erstellen'
+      title: config.pageTitle + ' | URL Erstellen',
+      currentUser: req.user
     })
   })
   .catch((error) => {

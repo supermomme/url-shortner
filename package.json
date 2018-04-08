@@ -8,6 +8,7 @@
     "bootstrap": "node ./bootstrap.js"
   },
   "dependencies": {
+    "cli-color": "^1.2.0",
     "clui": "^0.3.6",
     "config": "^1.30.0",
     "connect-flash": "^0.1.1",
