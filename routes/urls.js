@@ -10,7 +10,8 @@ var frobiddenUrlIds = [
   'admin/login',
   'admin/create',
   'admin/users',
-  'admin/users/create'
+  'admin/users/create',
+  'node_modules'
 ].concat(config.frobiddenUrlIds)
 
 router.get('/', (req, res) => {
